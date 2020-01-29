@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Post;
+use Illuminate\Http\Request;
+
+class PostController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'category_id' => 'integer|exists:categories,id|nullable'
+        ]);
+
+        $form = $request->input();
+
+        $post = new Post();
+
+        $post->title = $form->title;
+        $post->content = $form->content;
+        $post->category_id = $form->category_id;
+        $post->user_id = Auth::user()->id;
+
+        $post->save();
+
+        return redirect('/');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Blog  $blog
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Blog $blog)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Blog  $blog
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Blog $blog)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Blog  $blog
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Blog $blog)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Blog  $blog
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Blog $blog)
+    {
+        //
+    }
+}
